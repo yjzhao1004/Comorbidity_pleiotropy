@@ -1,10 +1,7 @@
 #eqtl mapping
 rm(list = ls())
 pleioloci<-read.csv("/Users/yujiezhao/Desktop/COMMO/FUMA/pleioloci/pleio_fuma_results/all_fuma_pleioloci20230619.csv")
-
 trait_unique_pair<-unique(pleioloci$Trait_pair)
-
-
 setwd("/Users/yujiezhao/Desktop/COMMO/eQTLmapping/")
 
 library(data.table)
@@ -47,13 +44,3 @@ eqtl_allpairs_collection<-subset(eqtl_allpairs_collection,db == "GTEx/v8")
 eqtl_allpairs_collection<-subset(eqtl_allpairs_collection,FDR < 0.05)
 
 write.csv(eqtl_allpairs_collection,file = "eqtl_allpairs_collection_20230717.csv")
-
-uniquegene_pleio<-unique(pleioloci$Nearest_Gene)
-
-uniquegene_eqtl<-unique(eqtl_allpairs_collection$symbol)
-
-
-uniquesnp_eqtl<-unique(eqtl_allpairs_collection$snp)
-
-
-
