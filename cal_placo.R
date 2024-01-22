@@ -3,23 +3,20 @@ rm(list = ls())
 require(devtools)
 source_url("https://github.com/RayDebashree/PLACO/blob/master/PLACO_v0.1.1.R?raw=TRUE")
 
-fileorder_disease1<-c("CHD","CHD","CHD","CHD","CHD","CHD","CHD","Asthma","Asthma","Asthma",
-                      "Asthma","chronicpain","chronicpain","chronicpain",
-                      "chronicpain","chronicpain","chronicpain","chronicpain",
-                      "chronicpain","chronicpain","chronicpain","chronicpain",
-                      "chronicpain","stroke","stroke","stroke","stroke","stroke",
-                      "PUD","PUD","PUD","PUD","PUD","PUD","PUD","PUD","T2D","T2D",
-                      "T2D","T2D","T2D","T2D","T2D","T2D","T2D","T2D","HTN","arthritis",
-                      "arthritis","arthritis","cancerlung","cancerlung","cancerlung","cancerlung",
-                      "cancerlung","lungfunction","lungfunction")
-
-fileorder_disease2<-c("ADHD","Alcohol","ANX","MDD","Insomnia","OCD","PTSD","BP","MDD","Insomnia","AD",
-                      "ADHD","Alcohol","ANX","ASD","BP","MDD","Insomnia","OCD",
-                      "PTSD","SCZ","TS","AD","ADHD","BP","Insomnia","OCD","TS",
-                      "ADHD","Alcohol","ANX","MDD","Insomnia","PTSD","SCZ","AD",
-                      "ADHD","Alcohol","Eat","ANX","MDD","Insomnia","OCD","PTSD",
-                      "SCZ","AD","Insomnia","ADHD","ASD","BP","ADHD","Eat","ANX",
-                      "MDD","Insomnia","BP","SCZ")
+#Before this step we have obtained disease pairs with significant genetic correlation (sig-rg)
+#fileorder_disease1: one disease in the sig-rg disease pairs
+#fileorder_disease2: the other disease in the sig-rg disease pairs
+fileorder_disease1<-c("MCP",	"MCP",	"T2D",	"MCP",	"PUD",
+                      "PUD",	"T2D",	"PUD",	"MCP",	"CAD",	"MCP",
+                      "T2D",	"PUD",	"MCP",	"T2D",	"MCP",	"CAD",
+                      "MCP",	"T2D",	"CAD",	"T2D",	"stroke",	"CAD",	"CLD",
+                      "MCP",	"T2D",	"T2D",	"T2D",	"CAD",	"MCP",	"PUD",
+                      "stroke",	"T2D",	"RA",	"RA")
+fileorder_disease2<-c("ADHD",	"MDD",	"ADHD",	"PTSD",	"ADHD",	"MDD",	"Eat",
+                      "ALD",	"ALD",	"ADHD",	"TS",	"MDD",	"PTSD",
+                      "BP",	"PTSD",	"SCZ",	"MDD",	"ANX",	"MS",	"AD",
+                      "OCD",	"ADHD",	"PTSD",	"SCZ",	"ASD",	"ALD",
+                      "ANX",	"AD",	"ALD",	"MS",	"SCZ",	"BP",	"SCZ",	"BP",	"MS")
 
   
 library(data.table)
@@ -36,7 +33,6 @@ for (j in c(1:length(fileorder_disease2))){
   filename_disease1_p<-paste('/Users/yujiezhao/Desktop/COMMO/LDSC/data/QC_GWAS_new/',fileorder_disease1[j],'_gwas_qc.txt',sep = '')
   disease1_p<-fread(filename_disease1_p,header=T)
   
-  
   filename_disease2<-paste('/Users/yujiezhao/Desktop/COMMO/LDSC/data/sum_gwas/',fileorder_disease2[j],'.sumstats',sep = '')
   disease2<-fread(filename_disease2,header=T)
   
@@ -46,7 +42,6 @@ for (j in c(1:length(fileorder_disease2))){
   filename_disease2_p<-paste('/Users/yujiezhao/Desktop/COMMO/LDSC/data/QC_GWAS_new/',fileorder_disease2[j],'_gwas_qc.txt',sep = '')
   disease2_p<-fread(filename_disease2_p,header=T)
   
-  #disease2_p<-disease2_p[,c("SNP","CHR","BP","A1","A2","OR","P")]
   names(disease1)[4]<-'Z_disease1'
   names(disease2)[4]<-'Z_disease2'
   
@@ -102,6 +97,26 @@ for (j in c(1:length(fileorder_disease2))){
 # VarZ: vector of variances of Z-scores (covariance assumed 0; so need to be independent traits)
 
 
+
+#collect all placo results txt in all pairwise diseases
+j = 1
+rm(qq_disease_file1,qq_disease_file)
+qq_disease<-paste('/Users/yujiezhao/Desktop/COMMO/PLACO/sig_placoresults/',fileorder_disease1[j],"_",fileorder_disease2[j],'.txt',sep = '')
+qq_disease_file1<-fread(qq_disease,header=T)
+qq_disease_file1$name<-paste(fileorder_disease1[j],"_",fileorder_disease2[j],sep = "")
+
+for( j in c(2:length(fileorder_disease2))){
+  qq_disease<-paste('/Users/yujiezhao/Desktop/COMMO/PLACO/sig_placoresults/',fileorder_disease1[j],"_",fileorder_disease2[j],'.txt',sep = '')
+  qq_disease_file<-fread(qq_disease,header=T)
+  qq_disease_file$name<-paste(fileorder_disease1[j],"_",fileorder_disease2[j],sep = "")
+  
+  qq_disease_file1<-rbind(qq_disease_file1,qq_disease_file)
+  
+}
+write.csv(qq_disease_file1,file = '/Users/yujiezhao/Desktop/COMMO/PLACO/all_sig_placo_bon_20230607.csv')
+
+
+#### draw qq plot ####
 ##qq plot:https://genome.sph.umich.edu/wiki/Code_Sample:_Generating_QQ_Plots_in_R
 #Quantile-quantile plots (qq-plots) can be useful for verifying that a set of values 
 #come from a certain distribution. For example in a genome-wide association study, 
@@ -112,51 +127,8 @@ for (j in c(1:length(fileorder_disease2))){
 #we generally transform the p-values by -log10 so that the smallest values 
 #near zero become the larger values and are thus easier to see.
 
-rm(list = ls())
-fileorder_disease1<-c("chronicpain","chronicpain","T2D","chronicpain","PUD","PUD","CHD","T2D",
-                      "PUD","chronicpain","chronicpain","CHD","T2D","PUD","chronicpain","T2D",
-                      "chronicpain","chronicpain","CHD","CHD","T2D","stroke",
-                      "T2D","lungfunction","chronicpain",	"T2D","T2D","T2D","chronicpain","CHD","PUD","stroke",	"T2D",	"arthritis",	"arthritis",	"CHD",	"Asthma")
-                      
-fileorder_disease2<-c("ADHD","MDD","ADHD","PTSD","ADHD","MDD","ADHD","Eat","Alcohol","Alcohol",
-                      "TS","MDD","MDD","PTSD","BP","PTSD","SCZ","ANX","PTSD","AD2","MS2","ADHD","OCD",
-                      "SCZ","ASD","Alcohol","ANX",	"AD",	"MS2",	"Alcohol",	"SCZ",	"BP",	"SCZ",	"BP",	"MS2",	"ANX",	"MDD")
-  
-
-fileorder_disease1<-c("chronicpain",	"chronicpain",	"T2D",	"chronicpain",	"PUD",
-                      "PUD",	"T2D",	"PUD",	"chronicpain",	"CHD2",	"chronicpain",
-                      "T2D",	"PUD",	"chronicpain",	"T2D",	"chronicpain",	"CHD2",
-                      "chronicpain",	"T2D",	"CHD2",	"T2D",	"stroke",	"CHD2",	"lungfunction",
-                      "chronicpain",	"T2D",	"T2D",	"T2D",	"CHD2",	"chronicpain",	"PUD",
-                      "stroke",	"T2D",	"arthritis",	"arthritis")
-fileorder_disease2<-c("ADHD",	"MDD",	"ADHD",	"PTSD",	"ADHD",	"MDD",	"Eat",
-                      "Alcohol",	"Alcohol",	"ADHD",	"TS",	"MDD",	"PTSD",
-                      "BP",	"PTSD",	"SCZ",	"MDD",	"ANX",	"MS2",	"AD2",
-                      "OCD",	"ADHD",	"PTSD",	"SCZ",	"ASD",	"Alcohol",
-                      "ANX",	"AD2",	"Alcohol",	"MS2",	"SCZ",	"BP",	"SCZ",	"BP",	"MS2")
-
-
-
-library(data.table)
-j = 1
-rm(qq_disease_file1,qq_disease_file)
-qq_disease<-paste('/Users/yujiezhao/Desktop/COMMO/PLACO/sig_placoresults/',fileorder_disease1[j],"_",fileorder_disease2[j],'.txt',sep = '')
-qq_disease_file1<-fread(qq_disease,header=T)
-qq_disease_file1$name<-paste(fileorder_disease1[j],"_",fileorder_disease2[j],sep = "")
-
-for( j in c(2:35)){
-  qq_disease<-paste('/Users/yujiezhao/Desktop/COMMO/PLACO/sig_placoresults/',fileorder_disease1[j],"_",fileorder_disease2[j],'.txt',sep = '')
-  qq_disease_file<-fread(qq_disease,header=T)
-  qq_disease_file$name<-paste(fileorder_disease1[j],"_",fileorder_disease2[j],sep = "")
-  
-  qq_disease_file1<-rbind(qq_disease_file1,qq_disease_file)
-  
-}
-
-write.csv(qq_disease_file1,file = '/Users/yujiezhao/Desktop/COMMO/PLACO/all_sig_placo_bon_20230607.csv')
-
-
-for( j in c(4:57)){
+##draw qq plot in each disease pair
+for( j in c(1:length(fileorder_disease2))){
   print(j)
   qq_disease<-paste('/Users/yujiezhao/Desktop/COMMO/PLACO/placoresults/',fileorder_disease1[j],"_",fileorder_disease2[j],'.txt',sep = '')
   qq_disease_file<-fread(qq_disease,header=T)
@@ -181,49 +153,4 @@ for( j in c(4:57)){
   dev.off();
   
 }
-
-
-
-rm(list = ls())
-pleioloci<-read.csv("/Users/yujiezhao/Desktop/COMMO/FUMA/pleioloci/pleio_fuma_results/all_fuma_pleioloci20230619.csv")
-
-trait_unique_pair<-unique(pleioloci$Trait_pair)
-
-setwd("/Users/yujiezhao/Desktop/COMMO/FUMA/pleioloci/pleio_fuma_results/")
-pleioloci$beta_chronic<-0
-pleioloci$beta_brain<-0
-for (i in c(1:length(trait_unique_pair))){
-  
-  filename<-paste(trait_unique_pair[i],"_pleiosnp.csv",sep = "")
-  pleiosnp<-read.csv(filename)
-  
-  pleioloci$beta_chronic[which(pleioloci$Trait_pair==trait_unique_pair[i])]<-pleiosnp[match(pleioloci[which(pleioloci$Trait_pair==trait_unique_pair[i]),]$TopSNP,pleiosnp$rsID),17]
-  pleioloci$beta_brain[which(pleioloci$Trait_pair==trait_unique_pair[i])]<-pleiosnp[match(pleioloci[which(pleioloci$Trait_pair==trait_unique_pair[i]),]$TopSNP,pleiosnp$rsID),14]
-  rm(pleiosnp,filename)
-  
-}
-pleioloci$beta2<-pleioloci$beta_chronic*pleioloci$beta_brain
-pleioloci$direction<-0
-pleioloci$direction[pleioloci$beta2<0]="-"
-pleioloci$direction[pleioloci$beta2>0]="+"
-write.csv(pleioloci,file = "all_fuma_pleioloci_direction_20230717.csv")
-
-multi_pleioloci<-pleioloci[duplicated(pleioloci$Locus_boundary),]
-all_multipleioloci = list()
-for (i in c(1:length(multi_pleioloci$X))){
-  current<-subset(pleioloci,Locus_boundary==multi_pleioloci[i,14])
-  all_multipleioloci<-rbind(all_multipleioloci,current)
-}
-write.csv(all_multipleioloci,file = "all_multi_fuma_pleioloci_direction_20230717.csv")
-
-rm(list = ls())
-all_multipleioloci<-read.csv("/Users/yujiezhao/Desktop/COMMO/FUMA/pleioloci/pleio_fuma_results/all_multi_fuma_pleioloci_direction_20230717.csv")
-
-
-#ANNOVAR
-intronic<-subset(pleioloci,Functional_annotation=="ncRNA_exonic")
-unique<-unique(intronic$TopSNP)
-
-
-
 
