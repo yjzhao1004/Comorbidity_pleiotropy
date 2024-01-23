@@ -42,7 +42,7 @@ See install instruction from [https://github.com/RayDebashree/PLACO](https://git
 **Citation:**
 Ray, D., Chatterjee, N. (2020) "A powerful method for pleiotropic analysis under composite null hypothesis identifies novel shared loci between Type 2 Diabetes and Prostate Cancer". *PLoS Genetics* 16(12): e1009218.
 
-**cal_placo.R**: used to calculate Placo.p.value for each SNP shared in the disease pairs with significant genetic correlation and draw qq-plots. (we provided T2D.sumstats.gz,  T2D_gwas_qc.txt, ALD.sumstats.gz, and ALD_gwas_qc.txt for data example)
+**cal_placo.R**: used to calculate Placo.p.value for each SNP shared in the disease pairs with significant genetic correlation and draw qq-plots. (we provided T2D.sumstats.gz and ALD.sumstats.gz for data example)
 
 ### Analysis 3: FUMA 
 We applied functional mapping and annotation of genetic associations (FUMA)(SNP2GENE function v1.5.4) to single-trait GWAS and significant pleiotropic variants from PLACO for **<u>pleiotropic loci characterization</u>** and **<u>functional annotation</u>**. 
