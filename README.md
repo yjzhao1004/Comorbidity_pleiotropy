@@ -10,7 +10,7 @@ These codes were used in the paper "Genome-wide Pleiotropy Analyses Identified S
 * FUMA ([https://fuma.ctglab.nl/](https://fuma.ctglab.nl/))
 * MAGMA ([https://ctg.cncr.nl/software/magma/](https://ctg.cncr.nl/software/magma/), also implemented in FUMA), 
 * Custom scripts for the analyses are listed as below.
-* We provided all data example in an external drive: [[https://drive.google.com/drive/my-drive](https://drive.google.com/drive/folders/1EYpq8FZ8N5lkFfsB0z3sR-4yfQ4-1Hlb?usp=sharing)](https://drive.google.com/drive/folders/1EYpq8FZ8N5lkFfsB0z3sR-4yfQ4-1Hlb?usp=sharing)
+* We provided the data example in the link: [[https://drive.google.com/drive/my-drive](https://drive.google.com/drive/folders/1EYpq8FZ8N5lkFfsB0z3sR-4yfQ4-1Hlb?usp=sharing)](https://drive.google.com/drive/folders/1EYpq8FZ8N5lkFfsB0z3sR-4yfQ4-1Hlb?usp=sharing)
 
 ### Analysis 1: Cross-trait LDSC
 
