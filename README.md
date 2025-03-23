@@ -36,7 +36,7 @@ See install instruction from [https://cran.r-project.org/web/packages/coloc/](ht
 **Citation:**
 Giambartolomei, C. et al. Bayesian Test for Colocalisation between Pairs of Genetic Association Studies Using Summary Statistics. *PLoS Genet* 10, e1004383 (2014).
 
-**coloc_manu_loci.R**: used to identify colocalized loci and best causal variants in the pleiotropy loci. (take T2D and ALD for example)
+**coloc_manu_loci.R**: used to identify colocalized loci and best causal variants in the pleiotropy loci. 
 
 ### Analysis 4: MAGMA
 We conducted a genome-wide gene-based association analysis in Multi-Marker Analysis of GenoMic Annotation (MAGMA) implemented in FUMA.
