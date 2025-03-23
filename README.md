@@ -54,8 +54,10 @@ See instruction of FUMA GENE2FUNC module from [https://fuma.ctglab.nl/gene2func]
 **drug_enrichment.R**: Drug perturbation analysis.
 
 **Citations:**
-Blake, J. A. et al. Mouse Genome Database (MGD): Knowledgebase for mouse–human comparative biology. *Nucleic Acids Research* 49, D981–D987 (2021)./n
-Watanabe, K., Taskesen, E., Van Bochoven, A. & Posthuma, D. Functional mapping and annotation of genetic associations with FUMA. *Nat Commun* 8, 1826 (2017)./n
+Blake, J. A. et al. Mouse Genome Database (MGD): Knowledgebase for mouse–human comparative biology. *Nucleic Acids Research* 49, D981–D987 (2021).
+
+Watanabe, K., Taskesen, E., Van Bochoven, A. & Posthuma, D. Functional mapping and annotation of genetic associations with FUMA. *Nat Commun* 8, 1826 (2017).
+
 Napolitano, F. et al. gene2drug: a computational tool for pathway-based rational drug repositioning. *Bioinformatics* 34, 1498–1505 (2018).
 
 ### Analysis 6: Survival analyses 
