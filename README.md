@@ -16,6 +16,7 @@ These codes were used in the paper "Genome-wide Pleiotropy Analyses Identified S
 ### Analysis 1: CondFDR and ConjFDR - Genome-wide Pleiotropy Search for Pleiotropic SNPs.
 1. We investigated the cross-trait pleiotropy enrichment based on overlapping SNP associations between 8 somatic conditions and 10 psychiatric disorders at condFDR < 0.01. 
 2. We use conjFDR to identify pleiotropic SNP in pairwise disease at conjFDR < 0.05.
+   
 See instruction from [https://github.com/precimed/pleiofdr](https://github.com/precimed/pleiofdr)
 
 **Citation:**
@@ -23,6 +24,7 @@ Andreassen, O. A. et al. Improved Detection of Common Variants Associated with S
 
 ### Analysis 2: Pleiotropic Loci and Functional Annotation - FUMA 
 We applied functional mapping and annotation of genetic associations (FUMA)(SNP2GENE function v1.5.4) to single-trait GWAS and significant pleiotropic variants.
+
 See instruction from [https://fuma.ctglab.nl/snp2gene](https://fuma.ctglab.nl/snp2gene)
 
 **Citation:**
@@ -31,6 +33,7 @@ Watanabe, K., Taskesen, E., Van Bochoven, A. & Posthuma, D. Functional mapping a
 ### Analysis 3: Bayesian Colocalization Analysis (COLOC)
 
 To check for possible bias due to LD, we utilized the Bayesian colocalization method implemented in the R package coloc (coloc.abf function) to test the probability of colocalization for each genomic locus from FUMA. 
+
 See install instruction from [https://cran.r-project.org/web/packages/coloc/](https://cran.r-project.org/web/packages/coloc/)
 
 **Citation:**
@@ -40,6 +43,7 @@ Giambartolomei, C. et al. Bayesian Test for Colocalisation between Pairs of Gene
 
 ### Analysis 4: MAGMA
 We conducted a genome-wide gene-based association analysis in Multi-Marker Analysis of GenoMic Annotation (MAGMA) implemented in FUMA.
+
 See instruction from [https://ctg.cncr.nl/software/magma](https://ctg.cncr.nl/software/magma)
 
 **Citation:**
@@ -50,7 +54,9 @@ We mapped GWAS SNPs from each disease to their respective protein-coding genes u
 
 ### Analysis 5: Enrichment
 See instruction of Mouse Genome Informatics platform from [http://www.informatics.jax.org/](http://www.informatics.jax.org/)
+
 See instruction of FUMA GENE2FUNC module from [https://fuma.ctglab.nl/gene2func](https://fuma.ctglab.nl/gene2func)
+
 **drug_enrichment.R**: Drug perturbation analysis.
 
 **Citations:**
